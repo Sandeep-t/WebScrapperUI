@@ -1,0 +1,42 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+	<import resource="WebScrapperDBContext.xml" />
+
+	<bean id="properties"
+
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:application.properties" />
+	</bean>
+
+	<context:annotation-config />
+
+	<bean id="webScraperService" class="com.pramati.webscraper.service.WebScrapperService">
+		<constructor-arg value="${web.scrapper.url}" />
+	</bean>
+
+	<bean id="webScrapper" class="com.pramati.webscraper.delegate.WebScrapperDelegate">
+
+	</bean>
+
+	<bean id="extractor" class="com.pramati.webscraper.utils.HTMLLinkExtractor" />
+
+	<bean id="executorService" class="java.util.concurrent.Executors"
+		factory-method="newFixedThreadPool">
+		<constructor-arg value="16" />
+	</bean>
+
+	<bean id="helper" class="com.pramati.webscraper.delegate.LuceneTaskDelegate">
+		<constructor-arg value="${index.directory.file.path}" />
+	</bean>
+
+	<bean id="luceneSearch" class="com.pramati.webscraper.service.LuceneSearchService" />
+
+
+
+</beans>
