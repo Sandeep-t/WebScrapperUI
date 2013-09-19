@@ -39,8 +39,7 @@ public class LuceneTaskDelegate {
 
 	@Autowired
 	ExecutorService executorService;
-	
-	
+
 	private static final Logger LOGGER = Logger.getLogger(LuceneTaskDelegate.class);
 
 	StandardAnalyzer analyzer = null;
@@ -56,9 +55,18 @@ public class LuceneTaskDelegate {
 	public LuceneTaskDelegate() {
 		super();
 	}
+	
+
+	/**
+	 * @return the dataDetailsQueue
+	 */
+	public BlockingQueue<ExtractedDataDetails> getDataDetailsQueue() {
+		return dataDetailsQueue;
+	}
+
 
 	public LuceneTaskDelegate(String indexDirPath) throws IOException {
-		//clearIndexDirectory(indexDirPath);
+		// clearIndexDirectory(indexDirPath);
 		index = FSDirectory.open(new File(indexDirPath));
 
 		analyzer = new StandardAnalyzer(Version.LUCENE_44);
@@ -69,7 +77,7 @@ public class LuceneTaskDelegate {
 
 	public void addTodataDetailsQueue(ExtractedDataDetails details) throws InterruptedException {
 		dataDetailsQueue.put(details);
-		
+
 	}
 
 	public List<Document> searchForString(String queryString) throws ParseException, IOException {
@@ -100,9 +108,9 @@ public class LuceneTaskDelegate {
 		return doc;
 	}
 
-	public  void  createIndexer(List<Document> docs) throws IOException {
+	public void createIndexer(List<Document> docs) throws IOException {
 		idxWriter.addDocuments(docs, analyzer);
-		//closeIndexWriter();
+		// closeIndexWriter();
 	}
 
 	public void createIndexer(Document doc) throws IOException {
@@ -122,7 +130,7 @@ public class LuceneTaskDelegate {
 	public void closeIndexWriter() throws IOException {
 		idxWriter.close();
 	}
-	
+
 	public void commitIndexWriter() throws IOException {
 		idxWriter.commit();
 	}
@@ -140,21 +148,20 @@ public class LuceneTaskDelegate {
 		Runnable pooler = new Runnable() {
 			@Override
 			public void run() {
-				
+
 				while (!Thread.interrupted()) {
-					
-				
+
 					ExtractedDataDetails data;
-					while((data=dataDetailsQueue.poll())!=null ) {
-					
+					while ((data = dataDetailsQueue.poll()) != null) {
+
 						try {
-						
-							LOGGER.debug("Processsing For Lucene indexing of "+ data.getUrl() + " ID " + data.getId());
+
+							LOGGER.debug("Processsing For Lucene indexing of " + data.getUrl() + " ID " + data.getId());
 							updateIndexData(data);
 						}
 						catch (IOException ioe) {
 							LOGGER.error("IOException occured while applying index using lucene for the record mentioned here "
-											+ data.getUrl() + " ID " + data.getId(),ioe);
+											+ data.getUrl() + " ID " + data.getId(), ioe);
 							ioe.printStackTrace();
 						}
 					}
@@ -164,7 +171,7 @@ public class LuceneTaskDelegate {
 					closeIndexWriter();
 				}
 				catch (IOException ioe) {
-					LOGGER.error("Exception occured while closing index writer ",ioe);
+					LOGGER.error("Exception occured while closing index writer ", ioe);
 					ioe.printStackTrace();
 				}
 

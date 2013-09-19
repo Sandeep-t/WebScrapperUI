@@ -21,11 +21,13 @@ import com.pramati.webscraper.dto.HtmlLink;
  */
 public class HTMLLinkExtractor {
 
-	private final Pattern patternTag, patternLink;
+	private final Pattern patternTag, patternLink,namePatternLink;
 	private Matcher matcherTag, matcherLink;
 	private static final Logger LOGGER = Logger.getLogger(HTMLLinkExtractor.class);
 	private static final String HTML_TAG_PATTERN = "(?i)<a([^>]+)>(.*?)</a>";
 	private static final String HTML_HREF_TAG_PATTERN = "\\s*(?i)href\\s*=\\s*(\"([^\"]*\")|'[^']*'|([^'\">\\s]+))";
+	
+	private static final String HTML_HREF_NAME_TAG_PATTERN = "(?i)<a([^>]+org&amp;q=from:[^>]+)>(.+?)</a>";
 	
 	
 	
@@ -33,6 +35,7 @@ public class HTMLLinkExtractor {
 	public HTMLLinkExtractor() {
 		patternTag = Pattern.compile(HTML_TAG_PATTERN);
 		patternLink = Pattern.compile(HTML_HREF_TAG_PATTERN);
+		namePatternLink=Pattern.compile(HTML_HREF_NAME_TAG_PATTERN);
 	}
 
 	/**
@@ -52,7 +55,7 @@ public class HTMLLinkExtractor {
 
 		while (matcherTag.find()) {
 
-			String href = matcherTag.group(1); 
+			String href = matcherTag.group(1);
 			LOGGER.info("Group 1 " + href);
 			String linkText = matcherTag.group(2);
 			LOGGER.debug("Group 2 " + linkText);
@@ -64,8 +67,7 @@ public class HTMLLinkExtractor {
 
 				LOGGER.info("link  " + linkAddress);
 
-				final HtmlLink link = new HtmlLink(linkAddress,linkText);
-				
+				final HtmlLink link = new HtmlLink(linkAddress, linkText);
 
 				result.add(link);
 
@@ -75,5 +77,19 @@ public class HTMLLinkExtractor {
 
 		return result;
 	}
+	
+	public String grabNames(String htmlData){
+
+		matcherTag = namePatternLink.matcher(htmlData);
+		String user =null;
+		while (matcherTag.find()) {
+			user= matcherTag.group(2);
+			LOGGER.debug("userName " + user);
+		}
+		return user;
+	}
+	
+	
+	
 }
 

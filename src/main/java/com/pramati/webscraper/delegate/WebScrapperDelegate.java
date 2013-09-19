@@ -80,6 +80,26 @@ public class WebScrapperDelegate {
 		doNotProcesshtmlLinks.put("Thread", null);
 
 	}
+	
+
+	/**
+	 * @return the childFutureList
+	 */
+	public BlockingQueue<Future<Response>> getChildFutureList() {
+		return childFutureList;
+	}
+
+
+
+	/**
+	 * @return the nextPageDataQueue
+	 */
+	public BlockingQueue<String> getNextPageDataQueue() {
+		return nextPageDataQueue;
+	}
+
+
+
 
 	/**
 	 * This method will take html data in form of String and will return a list
@@ -89,6 +109,7 @@ public class WebScrapperDelegate {
 	 * @return list of webaddress
 	 * @throws InterruptedException
 	 */
+	
 	public void processWeblinksinPageData(String htmlData, String webLink) throws InterruptedException {
 		/**
 		 * Replace all one or more space characters with " "
@@ -231,6 +252,8 @@ public class WebScrapperDelegate {
 
 							InputStream body = response.getBody();
 							ExtractedDataDetails details = new ExtractedDataDetails(url.toString(), responseCode, IOUtils.toString(body),dateFormat.format(new Date()), "WebScrapper");
+							
+							
 
 							dbService.insertExtractedData(details);
 
@@ -312,12 +335,19 @@ public class WebScrapperDelegate {
 		Future<Response> futureResponse = getFutureAsResponse(url);
 
 		final String pageData = getPageData( futureResponse.get().getBody());
-
+		
 		String urlSubstring = url.substring(0, url.lastIndexOf('/'));
 
 		LOGGER.debug("Constant part of the Weblink "+ url+" is "+ urlSubstring);
 
 		processWeblinksinPageData(pageData, urlSubstring);
+	
 	}
+	
+public String getUserName(String htmlData){
+
+	return extractor.grabNames(htmlData);
+	
+}
 
 }

@@ -11,13 +11,13 @@
 	<bean id="properties"
 
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:application.properties" />
+		<property name="location" value="classpath:WEB-INF/application.properties" />
 	</bean>
 
 	<context:annotation-config />
 
 	<bean id="webScraperService" class="com.pramati.webscraper.service.WebScrapperService">
-		<constructor-arg value="${web.scrapper.url}" />
+		
 	</bean>
 
 	<bean id="webScrapper" class="com.pramati.webscraper.delegate.WebScrapperDelegate">

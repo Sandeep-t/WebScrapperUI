@@ -14,11 +14,11 @@ public final class WebScrapperApp {
 
 	public static void main(String[] args) throws Exception {
 
-		ApplicationContext  ctx = new ClassPathXmlApplicationContext("WebScrapperAppContext.xml");
+		ApplicationContext  ctx = new ClassPathXmlApplicationContext("classpath:META-INF/WebScrapperAppContext.xml");
 
 		WebScrapperService webScraperService = (WebScrapperService) ctx.getBean("webScraperService");
 		
-		webScraperService.startWebScrapping();		
+		//webScraperService.startWebScrapping();		
 
 	}
 

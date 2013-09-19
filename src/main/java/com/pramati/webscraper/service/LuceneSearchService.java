@@ -24,7 +24,7 @@ public class LuceneSearchService {
 	
 	
 	@Autowired
-	LuceneTaskDelegate helper;
+	LuceneTaskDelegate luceneDelegate;
 	
 	@Autowired
 	MongoTemplate mongoTemplate;
@@ -35,13 +35,10 @@ public class LuceneSearchService {
 	
 	public List<JSONObject> searchForData(String queryString) throws ParseException, IOException, JSONException {
 		
-		//ApplicationContext  ctx = new ClassPathXmlApplicationContext("classpath:META-INF/WebScrapperAppContext.xml");
-
-		//WebScrapperService webScraperService = (WebScrapperService) ctx.getBean("webScraperService");
-		
+			
 		LOGGER.info("Search Started for " + queryString);
 		
-		List<Document> responseList = helper.searchForString(queryString);
+		List<Document> responseList = luceneDelegate.searchForString(queryString);
 		
 		LOGGER.debug("Total search results for the String " + queryString + " is " + responseList.size());
 		
@@ -73,24 +70,10 @@ public class LuceneSearchService {
 	}
 	
 	public void startIndexing(){
-		helper.startIndexer();
+		luceneDelegate.startIndexer();
 	}
 	
 	
-	/*private JSONObject toJsonString(ExtractedDataDetails searchResult) throws JSONException {
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("htmlWebAddress", searchResult.getUrl());
-		jsonObj.put("htmlData", searchResult.getHtmlData());
-		
-		return jsonObj;
-	}
 	
-	private ExtractedDataDetails toObjectString(JSONObject jsonObj ) throws JSONException {
-	ExtractedDataDetails details= new ExtractedDataDetails();	
-	details.setUrl(jsonObj.get("htmlWebAddress").toString());
-	details.setUrl(jsonObj.get("htmlData").toString());;
-		
-		return details;
-	}*/
-
+	
 }

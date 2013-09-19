@@ -1,7 +1,6 @@
 package com.pramati.webscraper.db.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
