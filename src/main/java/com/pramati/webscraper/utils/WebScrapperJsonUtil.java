@@ -50,6 +50,13 @@ public class WebScrapperJsonUtil {
     }
     
     
+    
+    /**
+     * This method converts given object into JSON Object
+     * @param searchResult
+     * @return
+     * @throws JSONException
+     */
    public static JSONObject toJsonString(ExtractedDataDetails searchResult) throws JSONException {
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("htmlWebAddress", searchResult.getUrl());

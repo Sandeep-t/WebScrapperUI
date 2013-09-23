@@ -6,7 +6,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:META-INF/WebScrapperAppContext.xml</param-value>
+    <param-value>classpath:WebScrapperAppContext.xml</param-value>
   </context-param>
   <listener>
     <listener-class>

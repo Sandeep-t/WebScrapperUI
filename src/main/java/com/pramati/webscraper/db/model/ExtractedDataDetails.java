@@ -6,10 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document(collection = "ExtractedDataDetails")
-public class ExtractedDataDetails  implements Serializable{
-	
+public class ExtractedDataDetails implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -20,19 +19,23 @@ public class ExtractedDataDetails  implements Serializable{
 
 	@Indexed(unique = true)
 	private String url;
-	
+
 	private int statusCode;
-	
-	private String htmlData;	
-	
+
+	private String htmlData;
+
 	private String createdDate;
-	
+
 	private String modifiedDate;
-	
+
 	private String createdby;
-	
+
 	private String modifiedBy;
-	
+
+	private String authorName;
+
+	private String mailSubject;
+
 	/**
 	 * @return the id
 	 */
@@ -41,7 +44,8 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -55,7 +59,8 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param url the url to set
+	 * @param url
+	 *            the url to set
 	 */
 	public void setUrl(String url) {
 		this.url = url;
@@ -69,12 +74,12 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param statusCode the statusCode to set
+	 * @param statusCode
+	 *            the statusCode to set
 	 */
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
-
 
 	/**
 	 * @return the htmlData
@@ -84,15 +89,12 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param htmlData the htmlData to set
+	 * @param htmlData
+	 *            the htmlData to set
 	 */
 	public void setHtmlData(String htmlData) {
 		this.htmlData = htmlData;
 	}
-	
-	
-
-
 
 	/**
 	 * @return the createdDate
@@ -102,7 +104,8 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param createdDate the createdDate to set
+	 * @param createdDate
+	 *            the createdDate to set
 	 */
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
@@ -116,7 +119,8 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param modifiedDate the modifiedDate to set
+	 * @param modifiedDate
+	 *            the modifiedDate to set
 	 */
 	public void setModifiedDate(String modifiedDate) {
 		this.modifiedDate = modifiedDate;
@@ -130,7 +134,8 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param createdby the createdby to set
+	 * @param createdby
+	 *            the createdby to set
 	 */
 	public void setCreatedby(String createdby) {
 		this.createdby = createdby;
@@ -144,21 +149,48 @@ public class ExtractedDataDetails  implements Serializable{
 	}
 
 	/**
-	 * @param modifiedBy the modifiedBy to set
+	 * @param modifiedBy
+	 *            the modifiedBy to set
 	 */
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public ExtractedDataDetails(){
-		
+	public ExtractedDataDetails() {
+
 	}
-	
-	
 
+	/**
+	 * @return the authorName
+	 */
+	public String getAuthorName() {
+		return authorName;
+	}
 
+	/**
+	 * @param authorName
+	 *            the authorName to set
+	 */
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
 
-public ExtractedDataDetails(String url, int statusCode, String htmlData, String createdDate, String createdby) {
+	/**
+	 * @return the mailSubject
+	 */
+	public String getMailSubject() {
+		return mailSubject;
+	}
+
+	/**
+	 * @param mailSubject
+	 *            the mailSubject to set
+	 */
+	public void setMailSubject(String mailSubject) {
+		this.mailSubject = mailSubject;
+	}
+
+	public ExtractedDataDetails(String url, int statusCode, String htmlData, String createdDate, String createdby) {
 		super();
 		this.url = url;
 		this.statusCode = statusCode;
@@ -167,17 +199,16 @@ public ExtractedDataDetails(String url, int statusCode, String htmlData, String 
 		this.createdby = createdby;
 	}
 
-/* (non-Javadoc)
- * @see java.lang.Object#toString()
- */
-@Override
-public String toString() {
-	return "ExtractedDataDetails [id=" + id + ", url=" + url + ", statusCode=" + statusCode + ",  htmlData=" + htmlData
-					+ ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", createdby=" + createdby
-					+ ", modifiedBy=" + modifiedBy + "]";
-}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "ExtractedDataDetails [id=" + id + ", url=" + url + ", statusCode=" + statusCode + ", htmlData="
+						+ htmlData + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", createdby="
+						+ createdby + ", modifiedBy=" + modifiedBy + ", authorName=" + authorName + ", mailSubject="
+						+ mailSubject + "]";
+	}
 
 	
-	
-
 }

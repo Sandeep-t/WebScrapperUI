@@ -18,6 +18,6 @@
 	<bean id="dbService" class="com.pramati.webscraper.service.WebScrapperDbService" />
 
 	<bean id="dataDetailsDelegate"
-		class="com.pramati.webscraper.delegate.ExtractedDataDetailsDelegate" />
+		class="com.pramati.webscraper.delegate.WebScrapperDbDelegate" />
 
 </beans>

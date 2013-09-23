@@ -100,7 +100,6 @@ public class WebScrapperDelegate {
 
 
 
-
 	/**
 	 * This method will take html data in form of String and will return a list
 	 * of weblinks embedded in thathtml data
@@ -252,8 +251,6 @@ public class WebScrapperDelegate {
 
 							InputStream body = response.getBody();
 							ExtractedDataDetails details = new ExtractedDataDetails(url.toString(), responseCode, IOUtils.toString(body),dateFormat.format(new Date()), "WebScrapper");
-							
-							
 
 							dbService.insertExtractedData(details);
 

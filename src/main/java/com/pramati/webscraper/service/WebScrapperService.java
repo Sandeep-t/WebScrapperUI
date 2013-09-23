@@ -3,6 +3,7 @@ package com.pramati.webscraper.service;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.pramati.webscraper.db.model.ExtractedDataDetails;
 import com.pramati.webscraper.delegate.LuceneTaskDelegate;
 import com.pramati.webscraper.delegate.WebScrapperDelegate;
 
@@ -61,5 +63,26 @@ public class WebScrapperService {
 						
 
 	}
+	
+	/**
+	 * This method does the task of updating the webScrapped with their corresponding Aurthor name 
+	 * and mail subject.
+	 * @throws FileNotFoundException 
+	 */
+	public void updateWebScrappedData() throws FileNotFoundException {
+		
+		dbService.stratupdatedDataPooler();
+		dbService.updateExtractedDataDetails();
+		/* List<ExtractedDataDetails> list=dbService.getAllRecords();
+		 for(ExtractedDataDetails detail:list){
+			
+			 System.out.println("Details are  "+detail);
+			 
+		 }*/
+
+	}
+	
+	
+	
 
 }
